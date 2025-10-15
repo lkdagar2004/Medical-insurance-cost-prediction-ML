@@ -5,7 +5,6 @@ import joblib
 
 print("Starting model and scaler training...")
 
-# --- 1. Load and Prepare the Full Dataset ---
 df = pd.read_csv("insurance.csv")
 df.drop_duplicates(inplace=True)
 
@@ -19,7 +18,7 @@ df = pd.get_dummies(df, columns=['bmi_categories'], drop_first=True)
 df = df.drop(['sex', 'smoker'], axis=1)
 df = df.astype(float)
 
-# --- 2. Select Final Features and Scale the Data ---
+# Select Final Features and Scale the Data
 final_df = df[[
     'age', 'bmi', 'is_smoker', 'children', 'charges',
     'region_southeast', 'is_female', 'bmi_categories_obese'
@@ -33,15 +32,14 @@ scaler = StandardScaler()
 cols_to_scale = ['age', 'bmi', 'children']
 x[cols_to_scale] = scaler.fit_transform(x[cols_to_scale])
 
-# --- 3. Train the Final Gradient Boosting Model ---
+# Train the Final Gradient Boosting Model
 final_model = GradientBoostingRegressor(random_state=42)
 final_model.fit(x, y)
 
-# --- 4. Save the Model and the Scaler to Files ---
+# Save the Model and the Scaler to Files
 joblib.dump(final_model, 'gradient_boosting_model.pkl')
 joblib.dump(scaler, 'scaler.pkl')
 
 print("Model and scaler have been saved successfully as 'gradient_boosting_model.pkl' and 'scaler.pkl'")
-### Step 2: Build the Streamlit Web App
 
 
