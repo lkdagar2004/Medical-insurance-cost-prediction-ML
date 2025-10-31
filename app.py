@@ -57,4 +57,3 @@ if st.sidebar.button("Predict Insurance Charge"):
 
     st.subheader("Predicted Insurance Charge")
     st.success(f"${prediction[0]:,.2f}")
-    st.write("This prediction is trained Gradient Boosting model.")
